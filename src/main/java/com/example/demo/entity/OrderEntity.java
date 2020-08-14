@@ -1,32 +1,26 @@
 package com.example.demo.entity;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "item")
+@Table(name = "order")
 @Builder
-public class ShopItemEntity {
+public class OrderEntity {
     @Id
     @GeneratedValue
     private Integer id;
 
-    private String name;
+    private Integer amount;
 
-    private Integer price;
-
-    private String unit;
-
-    private String url;
-
-    @ManyToOne
-    private OrderEntity order;
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "order")
+    private List<ShopItemEntity> shopItems;
 }
